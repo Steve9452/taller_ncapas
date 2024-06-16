@@ -1,44 +1,38 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import SignUp from './components/SignUp.jsx'
-import SignIn from './components/SignIn.jsx'
+import { createTheme, lighten } from "@mui/material/styles";
 import { CssBaseline } from '@mui/material';
-import PrivateRoute from './components/PrivateRoute.jsx'
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import './App.css'
 import App from './App.jsx'
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <PrivateRoute >
-                <App/>
-            </PrivateRoute>
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#112554",
+      light: lighten("#112554", 0.05), // Adjust the 0.2 value to control the lightness
+      dark: lighten("#112554", 0.2), // Adjust the 0.7 value to control the darkness
+    },
+    secondary: {
+      main: "#000A21",
+    },
+    info: {
+      main: "#0288D1",
+    },
+    error: {
+      main: "#AB0000",
+    },
+    background: {
+      default: "#E0E4E9",
+    },
   },
-  {
-    path: '/signup',
-    element: <SignUp />
-  },
-  {
-    path: '/signin',
-    element: <SignIn />
-  },
-  {
-    path: "/app",
-    element: <PrivateRoute >
-              <App/>
-            </PrivateRoute>
-
-  }
-])
-
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <CssBaseline />
-    <RouterProvider router={router}/>
+  <ThemeProvider theme={theme}>
+    <CssBaseline enableColorScheme />
+    <App />
+  </ThemeProvider>
   </React.StrictMode>,
 )
