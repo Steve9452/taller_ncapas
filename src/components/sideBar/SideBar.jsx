@@ -25,8 +25,8 @@ export default function SideBar({
   // const userAuthority = FakeAuthProvider.getAuthority;
   const { role } = useAuth();
 
-  const adminRoutes = [
-    // Rutas para el administrador
+  const asistentRoutes = [
+    // Rutas para el asistente
   ];
 
   const userRoutes = [
@@ -47,7 +47,7 @@ export default function SideBar({
   ];
 
   const authority = {
-    ADMIN: adminRoutes,
+    ASIST: asistentRoutes,
     USER: userRoutes,
     MEDIC: medicRoutes,
   };

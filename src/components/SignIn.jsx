@@ -13,6 +13,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import authService from '../services/authService';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../provider/authProvider";
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -31,6 +32,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const { setToken, setRole, token } = useAuth();
 
   const navigate = useNavigate();
 
@@ -46,7 +48,31 @@ export default function SignIn() {
          data.get('email'),
         data.get('password'));
         if (response) {
-          navigate('/app');
+          // Almacenar el token en el almacenamiento local
+          localStorage.setItem('user', JSON.stringify({ accessToken: response.data.token }));
+
+          // Establecer el token en el contexto
+          let token;
+
+          // Obtener el rol del usuario
+          const roles = response.data.roles;
+          let role = roles[0].id;
+          if (role === "ASIS") {
+            role = 'ASIST';
+            token = 'asist';
+          } else if (role === 'PACI') {
+            role = 'USER';
+            token = 'user';
+          } else if (role === "MEDI") {
+            role = 'MEDIC';
+            token = 'medic'
+          }
+
+          // Establecer el rol en el contexto
+          setRole(role);
+          setToken(token);
+
+          navigate('/');
         }
 
         console.log(response);

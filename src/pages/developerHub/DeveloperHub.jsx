@@ -25,13 +25,13 @@ import { useAuth } from "../../provider/authProvider";
 export default function DeveloperHub() {
   const { setToken, setRole, token } = useAuth();
 
-  const handleLoginAdmin = async () => {
+  const handleLoginAsist = async () => {
     console.log("Logging in...");
 
     // Fake auth provider
-    setToken("admin");
-    setRole("ADMIN");
-    // alert("Administrador logueado correctamente");
+    setToken("asist");
+    setRole("ASIST");
+    // alert("Asistente logueado correctamente");
   };
 
   const handleLoginUser = async () => {
@@ -80,11 +80,11 @@ export default function DeveloperHub() {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => handleLoginAdmin()}
+          onClick={() => handleLoginAsist()}
           disabled={token ? true : false}
           sx={{ width: "400px " }}
         >
-          Ingresar como Administrador
+          Ingresar como Asistente
         </Button>
         <Button
           variant="contained"
@@ -119,7 +119,7 @@ export default function DeveloperHub() {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => handleLoginAdmin()}
+            onClick={() => handleLoginAsist()}
             sx={{ width: "400px " }}
           >
             Volver al Login
